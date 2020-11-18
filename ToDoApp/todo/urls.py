@@ -1,10 +1,7 @@
-from django.urls import path
-from django.http import HttpResponse
-
-def home(request):
-    return HttpResponse("<h1>Hello World!</h1>")
-
+from django.urls import path, include
+from django.contrib import admin
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('admin/', admin.site.urls),
+    path('', include('mytodo.urls')),
 ]
