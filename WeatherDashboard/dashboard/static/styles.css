@@ -1,0 +1,23 @@
+#sideform{
+    min-height: 94vh;
+    background: linear-gradient(45deg, #fff, #8893ff);
+}
+
+.btn, .city-input{
+    border-radius: 20px;
+}
+
+#sideform p{
+    font-size: 1.2rem;
+}
+
+.card{
+    background-color: transparent;
+}
+
+#dashboard-card{
+    background: url(weather-cloud.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: soft-light;
+}
