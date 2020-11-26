@@ -1,5 +1,10 @@
+@media only screen and (min-width: 767px){
+    #sideform{
+        min-height: 94vh;
+    }
+}
+
 #sideform{
-    min-height: 94vh;
     background: linear-gradient(45deg, #fff, #8893ff);
 }
 
@@ -11,13 +16,9 @@
     font-size: 1.2rem;
 }
 
-.card{
-    background-color: transparent;
-}
-
 #dashboard-card{
-    background: url(weather-cloud.jpg);
+    background-image: url(weather-cloud.jpg);
     background-size: cover;
+    background-blend-mode: hard-light;
     background-repeat: no-repeat;
-    background-blend-mode: soft-light;
 }
