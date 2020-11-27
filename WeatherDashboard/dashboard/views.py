@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from dashboard.forms import CityForm
-
-import requests
-
+from dashboard.models import City
+from dashboard.helper import get_weather_data
 # Create your views here.
+
 def home(request):
     form = CityForm()
 
@@ -14,29 +14,27 @@ def home(request):
             form.save()
             city_name = form.cleaned_data.get('city_name')
             print(city_name)
-
-            url = f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid=66ff3434ba88fffc04bf3e1812207117&units=metric'
-            response = requests.get(url)
-            json_response = response.json()
-
-            weather_data = {
-                'temp': json_response['main']['temp'],
-                'temp_min': json_response['main']['temp_min'],
-                'temp_max': json_response['main']['temp_max'],
-                'city_name': json_response['name'],
-                'country': json_response['sys']['country'],
-                'lat': json_response['coord']['lat'],
-                'lon': json_response['coord']['lon'],
-                'weather': json_response['weather'][0]['main'],
-                'weather_desc': json_response['weather'][0]['description'],
-                'pressure': json_response['main']['pressure'],
-                'humidity': json_response['main']['humidity'],
-                'wind_speed': json_response['wind']['speed'],
-            }
-
+            weather_data = get_weather_data(city_name)
     elif request.method == 'GET':
-        weather_data = None
+        try:
+            city_name = City.objects.latest('date_added').city_name
+            weather_data = get_weather_data(city_name)
+        except Exception as e:
+            weather_data = None
 
     template_name = 'home.html'
     context = {'form': form, 'weather_data': weather_data}
     return render(request, template_name, context=context)
+
+
+def history(request):
+    template_name = 'history.html'
+    cities = City.objects.all().order_by('-date_added')[:5]
+
+    weather_data_list = []
+    for city in cities:
+        city_name = city.city_name
+        weather_data_list.append(get_weather_data(city_name))
+
+    context = {'weather_data_list': weather_data_list}
+    return render(request, template_name, context)

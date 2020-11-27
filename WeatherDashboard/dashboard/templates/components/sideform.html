@@ -4,7 +4,8 @@
         <form method="POST">
             {% csrf_token %}
             {{ form.city_name }}
-            <button class="btn btn-warning">Search</button>
+            <button class="btn btn-warning" type="submit">Search</button>
+            <a class="btn btn-warning" type="button" href="{% url 'history' %}">History</a>
         </form>
     </div>
 </div>

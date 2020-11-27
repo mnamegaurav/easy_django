@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">History</li>
+      </ol>
+    </nav>
+    {% for weather_data in weather_data_list %}
+        {% include 'components/card.html' %}
+    {% endfor %}
+{% endblock %}
