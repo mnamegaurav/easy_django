@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'e!c$z^0vu28i)#p($rc-dhqo%ng@tu6d)f9y#b6c-mkrn1m3o8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,8 +77,12 @@ WSGI_APPLICATION = 'WeatherDashboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd12ir0kk1vjhrr',
+        'USER': 'tfkjklgydmeggs',
+        'PASSWORD': 'bd0724b2750605c44e878d90fc1ea3c69ae965ae1ab210863e51edb0039ab0cc',
+        'HOST': 'ec2-35-171-109-11.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
@@ -119,6 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 OWM_API_KEY = '66ff3434ba88fffc04bf3e1812207117'
