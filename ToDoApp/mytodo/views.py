@@ -35,7 +35,7 @@ def edit_todo(request, todo_id):
     todo_obj = ToDo.objects.get(pk=todo_id)
 
     if request.method == 'POST':
-        form = ToDoForm(request.POST)
+        form = ToDoForm(request.POST, initial={'todo_text': todo_obj.todo_text})
         if form.is_valid():
             todo_obj.todo_text = form.cleaned_data.get('todo_text')
             todo_obj.save()
