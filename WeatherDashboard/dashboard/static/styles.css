@@ -1,0 +1,30 @@
+@media only screen and (min-width: 767px){
+    #sideform{
+        min-height: 94vh;
+    }
+}
+
+#sideform{
+    background: linear-gradient(45deg, #fff, #8893ff);
+}
+
+.btn, .city-input{
+    border-radius: 20px;
+}
+
+#sideform p{
+    font-size: 1.2rem;
+}
+
+#dashboard-card{
+    background-image: url(weather-cloud.jpg);
+    background-size: cover;
+    background-blend-mode: hard-light;
+    background-repeat: no-repeat;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

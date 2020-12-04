@@ -1,0 +1,78 @@
+{% if weather_data %}
+<div class="card mx-auto my-5" style="width: 30rem;" id="dashboard-card">  
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="border-bottom border-right">
+                    <div>
+                        <h1 class="text-center display-3">{{ weather_data.temp }}&deg; C</h1>
+                        <p><strong>{{ weather_data.temp_min }}&deg;C - {{ weather_data.temp_max }}&deg;C</strong></p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>{{ weather_data.city_name }}<small class="text-muted">({{ weather_data.country }})</small></p>
+                    </div>
+                    <div>
+                        <small>
+                            <strong>Lattitude:</strong>
+                            {{ weather_data.lat }}
+                        </small>
+                    </div>
+                    <div>
+                        <small>
+                            <strong>Longitude:</strong>
+                            {{ weather_data.lon }}
+                        </small>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="card-body">  
+        <div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>
+                                <strong>Weather: </strong> {{ weather_data.weather }}
+                                <small class="text-muted">{{ weather_data.weather_desc }}</small>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <strong>Pressure: </strong> {{ weather_data.pressure }} 
+                                <small class="text-muted">hPa</small>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <strong>Humidity: </strong> {{ weather_data.humidity }} %
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <strong>Wind Speed: </strong> {{ weather_data.wind_speed }} 
+                                <small class="text-muted">m/s</small>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>      
+    </div>
+</div>
+{% else %}
+    <div class="card mx-auto my-5" style="width: 30rem;" id="dashboard-card">  
+        <div class="card-body">  
+            <h3>Data Not Found</h3>
+        </div>
+    </div>
+{% endif %}

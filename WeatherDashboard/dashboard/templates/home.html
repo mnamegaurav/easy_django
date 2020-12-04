@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-4 d-flex justify-content-center text-center flex-nowrap flex-column" id="sideform">
+                <!-- Side Form -->
+                {% include 'components/sideform.html' %}
+            </div>
+            <div class="col-12 col-md-8 d-flex justify-content-center text-center flex-nowrap flex-row mx-auto">
+                <!-- Card -->
+                {% include 'components/card.html' %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
