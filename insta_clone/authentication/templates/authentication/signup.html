@@ -34,28 +34,31 @@
                             <div class="my-1 form__input">
                                 <input id="id_email" type="email" name="email" placeholder="Email" class="form-control {% if form.email.errors %}is-invalid{% endif %}">
                                 <div class="invalid-feedback">
-                                    Invalid Email
+                                    {{ form.email.errors }}
                                 </div>
                             </div>
                             <div class="my-1 form__input">
                                 <input id="id_username" type="text" name="username" placeholder="Username" class="form-control {% if form.username.errors %}is-invalid{% endif %}">
                                 <div class="invalid-feedback">
-                                    Invalid Username
+                                    {{ form.username.errors }}
                                 </div>
                             </div>
                             <div class="my-1 form__input">
                                 <input id="id_full_name" type="text" name="full_name" placeholder="Full Name" class="form-control {% if form.full_name.errors %}is-invalid{% endif %}">
                                 <div class="invalid-feedback">
-                                    Check your name again
+                                    {{ form.full_name.errors }}
                                 </div>
                             </div>
                             <div class="my-1 form__input">
                                 <input id="id_password1" type="password" name="password1" placeholder="Password" class="form-control {% if form.password1s.errors %}is-invalid{% endif %}">
+                                <div class="invalid-feedback">
+                                    {{ form.password1.errors }}
+                                </div>
                             </div>
                             <div class="my-1 form__input">
                                 <input id="id_password2" type="password" name="password2" placeholder="Retype Password" class="form-control {% if form.password2.errors %}is-invalid{% endif %}">
                                 <div class="invalid-feedback">
-                                    Invalid Password 
+                                    {{ form.password2.errors }}
                                 </div>
                             </div>
                             <div class="my-4 mx-auto text-center">

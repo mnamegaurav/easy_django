@@ -1,0 +1,28 @@
+.signin__phone{
+    max-height: 80vh;
+}
+
+.login__fb__text{
+    color: #385185;
+    font-weight: 600;
+}
+
+.signin__card{
+    width: 350px;
+}
+
+.login__fb__text:hover{
+    color: #385185;
+}
+
+.forogt__password{
+    color: rgba(var(--fe0,0,55,107),1);
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.get__app{
+    width: 350px;
+}

@@ -1,0 +1,65 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/signin.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-6 d-none d-md-block">
+            <img src="{% static 'img/phone_img.png' %}" class="signin__phone float-right">
+        </div>
+        <div class="col-sm-6 my-auto">
+            <div class="">
+                <div class="text-center card px-5 mr-md-auto signin__card">
+                    <img src="{% static 'img/instalogo.png' %}" class="insta__logo mt-4 mb-3 mx-auto">
+                    <div class="signin">
+                        <div class="signin__form mb-3">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="my-1 form__input">
+                                    <input id="id_email" type="email" name="email" placeholder="Email">
+                                </div>
+                                <div class="my-1 form__input">
+                                    <input id="id_password" type="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="my-4 mx-auto text-center">
+                                    <button class="btn btn-sm auth__btn">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-center my-4">
+                            <p class="or__text">OR</p>
+                        </div>
+                        <div class="my-1 mx-auto text-center">
+                            <a class="login__fb__text text-decoration-none" href="">Log in with Facebook</a>
+                        </div>
+                        <div class="mb-4">
+                            <a class="forogt__password text-decoration-none" href="/accounts/password/reset/">Forgot password?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center card mt-2 px-5 mr-md-auto signin__card">
+                    <p class="have__an__account py-3">Don't have an account? <a href="{% url 'singup_view' %}" class="text-decoration-none">Sign up</a></p>
+                </div>
+                <div class="text-center mt-2 px-5 mr-auto get__app">
+                    <p class="">Get the app.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="{% static 'img/appstore.png' %}" class="app__download__img">
+                        </div>
+                        <div class="col-6">
+                            <img src="{% static 'img/playstore.png' %}" class="app__download__img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

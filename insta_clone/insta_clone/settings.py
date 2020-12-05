@@ -126,3 +126,4 @@ MEDIA_URL = '/media/'
 
 
 AUTH_USER_MODEL = 'user.User'
+LOGIN_URL = 'singin_view'

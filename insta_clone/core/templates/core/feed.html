@@ -1,0 +1,9 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+    <h1>Hello Insta</h1>
+    <form method="POST" action="{% url 'singout_view' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">LOGOUT</button>
+    </form>
+{% endblock %}
