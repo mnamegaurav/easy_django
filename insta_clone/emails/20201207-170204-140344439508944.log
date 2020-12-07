@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: gaurav@email.com
+Date: Mon, 07 Dec 2020 17:02:04 -0000
+Message-ID: <160736052401.44066.16148304152652648531@gaurav.localdomain>
+
+
+You're receiving this email because you requested a password reset for your user account at localhost:8000.
+
+Please go to the following page and choose a new password:
+
+http://localhost:8000/password/reset/confirm/Mg/aeisng-65bb660fd351b716551767ff9b0dced5
+
+Your username, in case you’ve forgotten: gaurav@email.com
+
+Thanks for using our site!
+
+The localhost:8000 team
+
+
+
+-------------------------------------------------------------------------------

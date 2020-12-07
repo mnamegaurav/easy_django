@@ -39,12 +39,12 @@
                             <a class="login__fb__text text-decoration-none" href="">Log in with Facebook</a>
                         </div>
                         <div class="mb-4">
-                            <a class="forogt__password text-decoration-none" href="/accounts/password/reset/">Forgot password?</a>
+                            <a class="forogt__password text-decoration-none" href="{% url 'password_reset' %}">Forgot password?</a>
                         </div>
                     </div>
                 </div>
                 <div class="text-center card mt-2 px-5 mr-md-auto signin__card">
-                    <p class="have__an__account py-3">Don't have an account? <a href="{% url 'singup_view' %}" class="text-decoration-none">Sign up</a></p>
+                    <p class="have__an__account py-3">Don't have an account? <a href="{% url 'signup_view' %}" class="text-decoration-none">Sign up</a></p>
                 </div>
                 <div class="text-center mt-2 px-5 mr-auto get__app">
                     <p class="">Get the app.</p>

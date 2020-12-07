@@ -3,6 +3,12 @@ from django.views.generic import View
 from django.http import HttpResponse
 from authentication.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import (
+    PasswordResetView, 
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView
+    )
 # Create your views here.
 
 
@@ -40,7 +46,7 @@ class SignUpView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('singin_view')
+            return redirect('signin_view')
 
         context = {'form': form}
 
@@ -49,5 +55,20 @@ class SignUpView(View):
 
 class SignOutView(View):
     def post(self, request, *args, **kwargs):
+        # is user is not authenticated
         logout(request)
-        return redirect('singin_view')
+        return redirect('signin_view')
+
+
+class PRView(PasswordResetView):
+    email_template_name = 'authentication/password_reset_email.html'
+    template_name = 'authentication/password_reset.html'
+
+class PRDone(PasswordResetDoneView):
+    template_name = 'authentication/password_reset_done.html'
+
+class PRConfirm(PasswordResetConfirmView):
+    template_name = 'authentication/password_reset_confirm.html'
+
+class PRComplete(PasswordResetCompleteView):
+    template_name = 'authentication/password_reset_complete.html'
