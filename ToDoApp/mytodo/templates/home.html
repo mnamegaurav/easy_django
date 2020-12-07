@@ -29,7 +29,11 @@
                         <td>
                                 <p>{{ todo.todo_text }}</p>
                                 <p class="text-muted"><small>Added On:{{ todo.added_on }}</small></p>
-                                <p class="text-muted"><small>Updated On:{{ todo.updated_on }}</small></p>
+                            
+                                <!-- Show updated time info only if it's not equal to the add time info -->
+                                {% if todo.added_on != todo.updated_on %}
+                                    <p class="text-muted"><small>Updated On:{{ todo.updated_on }}</small></p>
+                                {% endif %}
                         </td>
                         <td class="text-right">
                             <form method="POST" action="{% url 'delete_todo' todo.id %}">
