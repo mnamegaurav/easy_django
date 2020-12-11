@@ -1,0 +1,12 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: gaurav@email.com
+Date: Fri, 11 Dec 2020 16:10:03 -0000
+Message-ID: <160770300364.41690.6674589698440147020@gaurav.localdomain>
+
+Devjunction is trying to steal your pasword- gaurav@email.com. Follow the link below:
+http://localhost:8000/password/reset/confirm/Mg/aeq4wr-a7cb902db29bed3349c1c06c5f208c01
+-------------------------------------------------------------------------------

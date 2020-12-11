@@ -2,6 +2,13 @@
 
 {% block content %}
     <h1>Hello Insta</h1>
+    <h2>
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    </h2>
     <form method="POST" action="{% url 'signout_view' %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">LOGOUT</button>

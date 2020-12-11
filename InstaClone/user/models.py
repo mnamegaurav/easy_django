@@ -4,7 +4,7 @@ from user.managers import CustomUserManager
 # Create your models here.
 
 class User(AbstractUser):
-    picture = models.ImageField(upload_to='profile_pictures', null=False, blank=False)
+    picture = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
     full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
 
@@ -12,7 +12,7 @@ class User(AbstractUser):
     last_name = None
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name',]
+    REQUIRED_FIELDS = ['full_name','username',]
 
     objects = CustomUserManager()
 

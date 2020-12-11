@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.contrib import messages
 from django.http import HttpResponse
 from authentication.forms import UserForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import (
+    authenticate, 
+    login, logout, 
+    get_user_model,
+    )
 from django.contrib.auth.views import (
     PasswordResetView, 
     PasswordResetDoneView,
@@ -11,6 +16,7 @@ from django.contrib.auth.views import (
     )
 # Create your views here.
 
+User = get_user_model()
 
 class SignInView(View):
     template_name = 'authentication/signin.html'
@@ -21,12 +27,23 @@ class SignInView(View):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-        email = request.POST.get('email')
+        email_username = request.POST.get('email_username')
         password = request.POST.get('password')
+
+        try:
+            user_obj = User.objects.get(username=email_username)
+            email = user_obj.email
+        except Exception as e:
+            email = email_username
+
         user = authenticate(request, email=email, password=password)
+        
         if user is None:
+            messages.error(request, 'Invalid Login.', extra_tags="error")
             return render(request, self.template_name) 
+
         login(request, user)
+        messages.success(request, 'Thanks for Login, Welcome to Insta Clone.', extra_tags='success')
         return redirect('home_feed')
         
 
