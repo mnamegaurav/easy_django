@@ -1,0 +1,19 @@
+#user__avatar img{
+    height: 26px;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute !important;
+}
+
+.nav__icons{
+    font-size: 24px;
+}
+
+.signout__btn{
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}

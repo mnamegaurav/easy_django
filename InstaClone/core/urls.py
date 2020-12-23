@@ -5,5 +5,5 @@ from core.views import (
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('feed/', login_required(HomeView.as_view()), name='home_feed'),
+    path('feed/', login_required(HomeView.as_view()), name='home_feed_view'),
 ]

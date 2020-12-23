@@ -1,0 +1,6 @@
+.profile__edit__card{
+    background-color: rgba(var(--d87,255,255,255),1);
+    max-width: 935px;
+    overflow: hidden;
+    width: 100%;
+}

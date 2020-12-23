@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{{ message.tags }}" role="alert" style="font-size: 13px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <h1>POSTS</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}

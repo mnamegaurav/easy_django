@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row mb-5 pl-md-5">
+            <div class="col-12 col-md-3 d-flex justify-content-center">
+                <label for="upload_profile_pic" class="profile__pic__btn">
+                    <img alt="Change Profile Photo" src="{{ request.user.picture }}" class="profile__pic">
+                </label>
+                <form enctype="multipart/form-data" method="POST" role="presentation">
+                    <input accept="image/jpeg,image/png" class="profile__pic__input" type="file" id="upload_profile_pic">
+                </form>
+            </div>
+            <div class="col-12 col-md-9 pl-5">
+                <div class="row userprofile__row__first py-2">
+                    <h2 class="username__text mr-4">{{ request.user.username }}</h2>
+                    <a class="edit__profile__btn mx-3 mx-md-4 text-decoration-none text-reset px-2 py-1" href="">Edit Profile</a>
+                    <a class="text-decoration-none text-reset settings__icon d-flex justify-content-center" href="">
+                        <span class="fa fa-cog mx-3 mx-md-4"></span>
+                    </a>
+                </div>
+                <div class="row userprofile__row__stats py-2">
+                    <span class="mr-3 mr-md-5"><strong>0</strong> posts</span>
+                    <span class="mr-3 mr-md-5"><strong>10</strong> followers</span>
+                    <span class="mr-3 mr-md-5"><strong>20</strong> following</span>
+                </div>
+                <div class="row user__fullname py-2">
+                    <span>
+                        <strong>{{ request.user.full_name }}</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12">
+                <nav>
+                    <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active text-reset" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Posts</a>
+                        <a class="nav-item nav-link text-reset" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Saved</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="no__posts__img">
+                            <img src="{% static 'img/no-posts1.jpg' %}">
+                            <img src="{% static 'img/no-posts2.jpg' %}">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <h1>Saved Posts</h1>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+{% endblock %}
