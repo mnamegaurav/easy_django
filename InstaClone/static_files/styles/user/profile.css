@@ -15,7 +15,8 @@
 }
 
 .profile__pic{
-    height: 115%;
+    height: 175px;
+    width: 175px;
     border-radius: 50%;
     object-fit: cover;
 }

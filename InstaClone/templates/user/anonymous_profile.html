@@ -1,0 +1,159 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row mb-5 pl-md-5">
+            <div class="col-12 col-md-3 d-flex justify-content-center">
+                <label for="upload_profile_pic" class="profile__pic__btn">
+
+                    <!-- User's Profile picture -->
+                    {% if user.picture %}
+                        <a href="profile_edit_view">
+                            <img src="{{ user.picture.url }}" class="profile__pic">
+                        </a>
+                    {% else %}
+                        <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"  class="profile__pic">
+                    {% endif %}
+                    <!-- User's Profile picture end -->
+
+                </label>
+            </div>
+            <div class="col-12 col-md-9 pl-5">
+
+                <div class="row userprofile__row__first py-2">
+
+                    <!-- Username -->
+                    <h2 class="username__text mr-4">{{ user.username }}</h2>
+
+                    <!-- If follws then this -->
+                        <!-- Follow button -->
+                        <form method="POST" action="follow_done_view">
+                            {% csrf_token %}
+                            <input type="number" name="followed_user_id" hidden value="{{ user.pk }}">
+                            <button class="px-2 btn btn-sm btn-primary mx-2" type="submit">Follow</button>
+                        </form>
+
+                    <!-- else this -->
+                        <!-- Unfollow button -->
+                        <form method="POST" action="unfollow_done_view">
+                            {% csrf_token %}
+                            <input type="number" name="unfollowed_user_id" hidden value="{{ user.pk }}">
+                            <button class="px-2 btn btn-sm btn-success mx-2" type="submit">Unfollow</button>
+                        </form>
+
+                </div>
+
+                <div class="row userprofile__row__stats py-2">
+                    <span class="mr-3 mr-md-5">
+                        <strong>
+
+                        <!-- total posts count -->
+                        30
+                        </strong> posts
+
+                    </span>
+                    <span class="mr-3 mr-md-5">
+                        <strong>
+
+                        <!-- total followers count -->
+                        25
+                        </strong> followers
+
+                    </span>
+                    <span class="mr-3 mr-md-5">
+                        <strong>
+
+                        <!-- total following count -->
+                        30
+                        </strong> following
+
+                    </span>
+                </div>
+                <div class="row user__fullname py-2">
+                    <span>
+                        <strong>{{ user.full_name }}</strong>
+                    </span>
+
+                    <!-- User's bio if any -->
+                    {% if user.bio %}
+                        <span>
+                            {{ user.bio }}
+                        </span>
+                    {% endif %}
+
+                    <!-- User's website if any -->
+                    {% if user.website %}
+                        <span>
+                            <strong><a href="{{ user.website }}">{{ user.website }}</a></strong>
+                        </span>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12">
+                <nav>
+                    <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                        
+                        <!-- All my posts tab -->
+                        <a class="nav-item nav-link active text-reset" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Posts</a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        
+
+                        <!-- All posts grid -->
+                        <div class="all__posts__grid row justify-content-center">
+
+                                <!-- Single post grid -->
+                                <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
+                                    <a href="post_view" class="text-decoration-none text-reset">
+
+                                        <!-- Post image -->
+                                        <img src="" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+
+                                        <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
+                                            <span class="mx-2">
+                                                <span class="far fa-heart"></span>
+
+                                                <!-- total post likes -->
+                                                30
+
+                                            </span> 
+                                            <span class="mx-2">
+                                                <span class="far fa-comment"></span>
+
+                                                <!-- total post comments -->
+                                                400
+
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Single post grid end -->
+
+                        </div>
+                        <!-- All posts grid end -->
+
+
+                        <!-- No post images -->
+                        <div class="no__posts__img">
+                            <img src="{% static 'img/no-posts1.jpg' %}">
+                            <img src="{% static 'img/no-posts2.jpg' %}">
+                        </div>
+
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

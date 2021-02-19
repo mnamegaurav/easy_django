@@ -8,6 +8,10 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
 
+    # Optional fields
+    bio = models.TextField(null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+    
     first_name = None
     last_name = None
 

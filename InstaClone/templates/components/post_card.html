@@ -1,0 +1,47 @@
+<div class="card mx-auto mb-5" style="max-width: 32rem;">
+  <div class="card-body p-0">
+    <div class="card-title post__card__head d-flex justify-content-between px-3 pt-3">
+        <div>
+
+            <!-- Post Creator Profile Picture -->
+            {% if post.user.picture %}
+                <img src="{{ post.user.picture.url }}" class="rounded-circle z-depth-0">
+            {% else %}
+                <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="rounded-circle z-depth-0">
+            {% endif %}
+            <!-- Post Creator Profile Picture End -->
+
+            <span class="ml-2">
+
+                <!-- Link to Post Creator profile -->
+                <a href="{% url 'profile_view' post.user.username %}" class="text-decoration-none text-reset">{{ post.user.username }}</a>
+                <!-- Link to Post Creator profile End -->
+
+            </span>
+        </div>
+        <div class="more__options__dot">
+
+            <!-- Link to Open Posts Detail page -->
+            <a class="text-reset text-decoration-none" type="button" href="post_view">
+                <strong>Go to Post</strong>
+            </a>
+            <!-- Link to Open Posts Detail page End -->
+
+        </div>
+    </div>
+    <div class="post__card__img">
+
+        <!-- Post Image -->
+        <img src="{{ post.image.url }}" style="width: 100%;">
+
+    </div>
+
+    <!-- Post Text if any -->
+    {% if post.text %}
+    <div class="post__card__text pt-3 px-2">
+        <p>{{ post.text }}</p>
+    </div>
+    {% endif %}
+    
+  </div>
+</div>

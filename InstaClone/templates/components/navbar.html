@@ -7,38 +7,74 @@
               <img src="{% static 'img/instalogo.png' %}" class="nav__insta__logo">
           </a>
         <div class="search__input m-auto d-none d-md-block">
-          <input type="text" autocapitalize="none" placeholder="Search" value="" class="form-control">
+
+          <!-- Form to search Users -->
+          <form method="GET" action="all_profiles_view" class="form-inline">
+            <input type="text" autocapitalize="none" placeholder="Search" value="" class="form-control" name="s">
+            <button type="submit" class="ml-2 btn p-0">
+              <i class="fa fa-search"></i>
+            </button>
+          </form>
+          <!-- Form to search Users End -->
+
         </div>    
         <ul class="navbar-nav ml-0 ml-md-auto d-flex flex-row">
+
+          <!-- Home Button -->
           <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
             <a href="{% url 'home_feed_view' %}" class="text-decoration-none text-reset"><span class="nav__icons fa fa-home"></span></a>
           </li>
+
+          <!-- Explore View Button -->
           <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
-            <a href="/explore/" class="text-decoration-none text-reset"><span class="nav__icons far fa-compass"></span></a>
+            <a href="posts_explore_view" class="text-decoration-none text-reset"><span class="nav__icons far fa-compass"></span></a>
           </li>
+
+          <!-- Liked Posts Button -->
           <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
-            <a href="/saved_posts_view/" class="text-decoration-none text-reset"><span class="nav__icons far fa-heart"></span></a>
+            <a href="liked_posts_view" class="text-decoration-none text-reset"><span class="nav__icons far fa-heart"></span></a>
           </li>
+
+          <!-- Dropdown for more menu -->
           <li class="nav-item dropdown ml-2">
             <a class="nav-link dropdown-toggle" id="user__avatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: inherit;padding: inherit;">
-              <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0">
+
+              <!-- User's Profile Picture -->
+              {% if request.user.picture %}
+                <img src="{{ request.user.picture.url }}" class="rounded-circle z-depth-0">
+              {% else %}
+                <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="rounded-circle z-depth-0">
+              {% endif %}
+              <!-- User's Profile Picture End -->
+
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user__avatar">
+
+              <!-- Profile View Button -->
               <a class="dropdown-item" href="{% url 'profile_view' request.user.username %}">
                 <span class="mr-3 fa fa-user-circle"></span>Profile
               </a>
-              <a class="dropdown-item" href="/saved_posts_view/">
+
+              <!-- Saved posts Button -->
+              <a class="dropdown-item" href="posts_saved_view">
                 <span class="mr-3 fa fa-bookmark"></span>Saved
               </a>
-              <a class="dropdown-item" href="/">
-                <span class="mr-3 fa fa-cog"></span>Settings
+
+              <!-- Change Password Button -->
+              <a class="dropdown-item" href="password_change_view">
+                <span class="mr-3 fa fa-cog"></span>Change Password
               </a>
+
               <div class="dropdown-divider"></div>
+
               <div class="dropdown-item">
+
+                <!-- Signout Button -->
                 <form method="POST" action="{% url 'signout_view' %}">
                   {% csrf_token %}
                   <a href="javascript:;" onclick="parentNode.submit();" class="text-reset text-decoration-none">Sign Out</a>
                 </form>
+                
               </div>
             </div>
           </li>

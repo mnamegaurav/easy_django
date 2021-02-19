@@ -1,0 +1,269 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row mb-5 pl-md-5">
+            <div class="col-12 col-md-3 d-flex justify-content-center">
+                <label for="upload_profile_pic" class="profile__pic__btn">
+
+                    <!-- Profile Picture -->
+                    {% if user.picture %}
+                        <a href="profile_edit_view">
+                            <img src="{{ user.picture.url }}" class="profile__pic">
+                        </a>
+                    {% else %}
+                        <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"  class="profile__pic">
+                    {% endif %}
+                    <!-- Profile Picture end -->
+
+                </label>
+            </div>
+            <div class="col-12 col-md-9 pl-5">
+
+                <div class="row userprofile__row__first py-2">
+
+                    <!-- Username -->
+                    <h2 class="username__text mr-4">{{ user.username }}</h2>
+
+                    <!-- Edit Profile Button -->
+                    <a class="edit__profile__btn mx-3 mx-md-4 text-decoration-none text-reset px-2 py-1" href="profile_edit_view">Edit Profile</a>
+
+                    <!-- Settings icon -->
+                    <a class="text-decoration-none text-reset settings__icon d-flex justify-content-center" data-toggle="modal" data-target="#settings_list">
+                        <span class="fa fa-cog mx-3 mx-md-4"></span>
+                    </a>
+
+                </div>
+                
+                <div class="row userprofile__row__stats py-2">
+                    <span class="mr-3 mr-md-5">
+
+                        <!-- Total number of posts -->
+                        <strong>
+                        10
+                        </strong> posts
+
+                    </span>
+                    <span class="mr-3 mr-md-5">
+
+                        <!-- Total number of followers -->
+                        <strong>
+                        20
+                        </strong> followers
+
+                    </span>
+                    <span class="mr-3 mr-md-5">
+
+                        <!-- Total followings count -->
+                        <strong>
+                        200
+                        </strong> following
+
+                    </span>
+                </div>
+                <div class="row user__fullname py-2">
+                    <span>
+
+                        <!-- User fullname -->
+                        <strong>{{ user.full_name }}</strong>
+
+                    </span>
+
+                    <!-- User's Bio if any -->
+                    {% if user.bio %}
+                        <span>
+                            {{ user.bio }}
+                        </span>
+                    {% endif %}
+
+                    <!-- User's website if any -->
+                    {% if user.website %}
+                        <span>
+                            <strong><a href="{{ user.website }}">{{ user.website }}</a></strong>
+                        </span>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12">
+                <nav>
+                    <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                        
+                        <!-- All my posts tab -->
+                        <a class="nav-item nav-link active text-reset" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Posts</a>
+                        
+                        <!-- All saved posts tab -->
+                        <a class="nav-item nav-link text-reset" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Saved</a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+
+                    <!-- All my posts tab content -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        
+
+                        <!-- All posts grids -->
+                        <div class="all__posts__grid row justify-content-center">
+                            
+
+                            <!-- Single posts grid -->
+                            <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
+                                <a href="post_view" class="text-decoration-none text-reset">
+
+                                    <!-- Post image -->
+                                    <img src="" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+
+                                    <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
+                                        <span class="mx-2">
+                                            <span class="far fa-heart"></span>
+
+                                            <!-- total post like count -->
+                                            20
+
+                                        </span> 
+                                        <span class="mx-2">
+                                            <span class="far fa-comment"></span>
+
+                                            <!-- total post comment count -->
+                                            30
+
+                                        </span>
+                                        <span class="mx-2">
+
+                                            <!-- post delete button -->
+                                            <a data-toggle="modal" data-target="#post_delete_POST_PK" style="cursor: pointer;">
+                                                <span class="fa fa-trash"></span>
+                                            </a>
+                                            
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Single posts grid end -->
+
+                        </div>
+                        <!-- All posts grid end -->
+
+
+                        <!-- No posts images -->
+                        <div class="no__posts__img">
+                            <img src="{% static 'img/no-posts1.jpg' %}">
+                            <img src="{% static 'img/no-posts2.jpg' %}">
+                        </div>
+
+                    </div>
+                    <!-- All my posts tab content end -->
+
+                    <!-- Saved posts tab content -->
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="all__posts__grid row justify-content-center">
+                        
+                            <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
+                                <a href="post_view" class="text-decoration-none text-reset">
+                                    <img src="" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+                                    <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
+                                        <span class="mx-2">
+                                            <span class="far fa-heart"></span>
+
+                                            <!-- total like count -->
+                                            30
+
+                                        </span> 
+                                        <span class="mx-2">
+                                            <span class="far fa-comment"></span>
+
+                                            <!-- total comment count -->
+                                            40
+
+                                        </span>           
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Saved posts tab content end -->
+
+                </div>                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- All Modals in this page -->
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settings_list" tabindex="-1" aria-labelledby="settings_list_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0 py-2 text-center">
+
+                    <!-- Edit Profile Button -->
+                    <div class="p-1 m-0 px-4">
+                        <a href="profile_edit_view" class="text-reset text-decoration-none">Edit Profile</a>
+                    </div>
+                    <!-- Edit Profile Button end -->
+
+                    <div class="dropdown-divider"></div>
+
+                    <!-- Change password button -->
+                    <div class="p-1 m-0 px-4">
+                        <a href="password_change_view" class="text-reset text-decoration-none">Change Password</a>
+                    </div>
+                    <!-- Change password button end -->
+
+                    <div class="dropdown-divider"></div>
+
+                    <div class="p-1 m-0 px-4">
+
+                    <!-- Signout button -->
+                    <form method="POST" action="{% url 'signout_view' %}">
+                        {% csrf_token %}
+                        <a href="javascript:;" onclick="parentNode.submit();" class="text-reset text-decoration-none">Sign Out</a>
+                    </form>
+                    <!-- Signout button end -->
+
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+
+                    <div class="p-1 m-0 px-4">
+                        <a data-dismiss="modal" style="cursor: pointer;">Cancel</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Settings Modal end -->
+
+
+    <!-- Post Delete modal -->
+    <div class="modal fade" id="post_delete_{{ post.pk }}" tabindex="-1" aria-labelledby="post_delete_{{ post.pk }}_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0 py-2 text-center">
+                    <div class="p-1 m-0 px-4">
+                        <p>Do you really want to delete this post?</p>
+                    </div>
+                    <div class="p-1 m-0 px-4">
+                        <form method="POST" action="post_delete_view">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-warning" type="submit">Yes</button>
+                            <a class="btn btn-sm btn-info" data-dismiss="modal">No</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Post Delete modal end -->
+
+{% endblock %}

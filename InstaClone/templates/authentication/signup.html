@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'styles/signup.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/authentication/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/authentication/signup.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="text-center card mt-2 px-5 mx-auto signup__card">
-                <p class="have__an__account py-3">Have an account? <a href="" class="text-decoration-none">Sign in</a></p>
+                <p class="have__an__account py-3">Have an account? <a href="{% url 'signin_view' %}" class="text-decoration-none">Sign in</a></p>
             </div>
         </div>
     </div>

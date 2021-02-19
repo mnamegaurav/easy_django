@@ -23,7 +23,7 @@ class SignInView(View):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home_feed')
+            return redirect('home_feed_view')
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
@@ -44,7 +44,7 @@ class SignInView(View):
 
         login(request, user)
         messages.success(request, 'Thanks for Login, Welcome to Insta Clone.', extra_tags='success')
-        return redirect('home_feed')
+        return redirect('home_feed_view')
         
 
 
@@ -54,7 +54,7 @@ class SignUpView(View):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home_feed')
+            return redirect('home_feed_view')
         # ye wala code run kardo
         return render(request, self.template_name)
 

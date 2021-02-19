@@ -1,10 +1,16 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/core/post_card.css' %}">
+{% endblock %}
 
 {% block content %}
 
+    <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
-            <div class="{{ message.tags }}" role="alert" style="font-size: 13px;">
+            <div class="alert alert-success w-50 mt-4 mx-auto text-center {{ message.tags }}" role="alert" style="font-size: 13px;">
                 {{ message }}
             </div>
         {% endfor %}
@@ -13,7 +19,37 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-12 col-md-8">
-                <h1>POSTS</h1>
+                <div class="card mx-auto mb-4" style="max-width: 32rem;">
+                    <div class="card-body">
+                        <div>
+
+                            <!-- Post Create Form -->
+                            <form method="POST" action="post_create_view" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="mb-2">{{ field }}</div>
+                                {% endfor %}
+                                <button class="btn btn-sm btn-primary" type="submit">Save</button>
+                            </form>
+                            <!-- Post Create Form End -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-8">
+
+                <!-- All the posts in database -->
+                {% for post in all_posts %}
+
+                    <!-- Single Posts Card -->
+                    {% include 'components/post_card.html' %}
+                    
+                {% endfor %}
+                <!-- All the posts in database -->
+
             </div>
         </div>
     </div>

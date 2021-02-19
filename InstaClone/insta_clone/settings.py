@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
-    'common.apps.CommonConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +124,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR/'static_files',]
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 AUTH_USER_MODEL = 'user.User'
