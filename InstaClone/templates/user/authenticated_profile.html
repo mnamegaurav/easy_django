@@ -13,7 +13,7 @@
 
                     <!-- Profile Picture -->
                     {% if user.picture %}
-                        <a href="profile_edit_view">
+                        <a href="{% url 'profile_edit_view' request.user.username %}">
                             <img src="{{ user.picture.url }}" class="profile__pic">
                         </a>
                     {% else %}
@@ -31,7 +31,7 @@
                     <h2 class="username__text mr-4">{{ user.username }}</h2>
 
                     <!-- Edit Profile Button -->
-                    <a class="edit__profile__btn mx-3 mx-md-4 text-decoration-none text-reset px-2 py-1" href="profile_edit_view">Edit Profile</a>
+                    <a class="edit__profile__btn mx-3 mx-md-4 text-decoration-none text-reset px-2 py-1" href="{% url 'profile_edit_view' request.user.username %}">Edit Profile</a>
 
                     <!-- Settings icon -->
                     <a class="text-decoration-none text-reset settings__icon d-flex justify-content-center" data-toggle="modal" data-target="#settings_list">
@@ -67,7 +67,7 @@
                     </span>
                 </div>
                 <div class="row user__fullname py-2">
-                    <span>
+                    <span class="col-12 px-0">
 
                         <!-- User fullname -->
                         <strong>{{ user.full_name }}</strong>
@@ -76,14 +76,14 @@
 
                     <!-- User's Bio if any -->
                     {% if user.bio %}
-                        <span>
+                        <span class="col-12 px-0">
                             {{ user.bio }}
                         </span>
                     {% endif %}
 
                     <!-- User's website if any -->
                     {% if user.website %}
-                        <span>
+                        <span class="col-12 px-0">
                             <strong><a href="{{ user.website }}">{{ user.website }}</a></strong>
                         </span>
                     {% endif %}
@@ -207,7 +207,7 @@
 
                     <!-- Edit Profile Button -->
                     <div class="p-1 m-0 px-4">
-                        <a href="profile_edit_view" class="text-reset text-decoration-none">Edit Profile</a>
+                        <a href="{% url 'profile_edit_view' request.user.username %}" class="text-reset text-decoration-none">Edit Profile</a>
                     </div>
                     <!-- Edit Profile Button end -->
 

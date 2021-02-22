@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user/profile_edit.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 my-4">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-primary" role="alert">
+                          {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="card profile__edit__card m-auto">
+                    <div class="card-header">
+                        <p class="m-0" style="color: #5f5f5f;">Edit Profile</p>
+                    </div>
+                    <div class="card-body offset-md-2">
+
+                        <!-- User's Profile Picture -->
+                        {% if request.user.picture %}
+                        <div>
+                            <img src="{{ request.user.picture.url }}" class="rounded-circle z-depth-0 offset-md-2 mb-4" style="height: 100px;width: 100px">
+                        </div>
+                        {% else %}
+                            <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"  class="rounded-circle z-depth-0 offset-md-2 mb-4" style="height: 100px;width: 100px">
+                        {% endif %}
+                        <!-- User's Profile Picture end -->
+
+                        <!-- Profile Edit form -->
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            {% for field in form %}
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm text-md-right font-weight-bolder" for="{{ field.auto_id }}">{{ field.label }}</label>
+                                <div class="col-sm-8">
+                                    {{ field }}
+                                    <small id="passwordHelpBlock" class="form-text text-muted">
+                                        {{ field.help_text }}
+                                    </small>
+                                    <div class="invalid-feedback">
+                                        {{ field.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="offset-md-2 my-1">
+                                <button class="btn btn-sm btn-primary">Submit</button>
+                            </div>
+                        </form>
+                        <!-- Profile Edit form end -->
+
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
