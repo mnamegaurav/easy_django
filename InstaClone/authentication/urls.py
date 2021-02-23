@@ -3,14 +3,19 @@ from authentication.views import (
     SignInView,
     SignUpView, 
     SignOutView,
-    PRView, PRDone, PRConfirm, PRComplete
+    PRView, PRDone, PRConfirm, PRComplete,
+    PWDChangeView, PWDChangeDoneView,
     )
+from django.urls import reverse_lazy
+
 
 from django.contrib.auth.views import (
     PasswordResetView, 
     PasswordResetDoneView,
     PasswordResetConfirmView,
-    PasswordResetCompleteView
+    PasswordResetCompleteView,
+    PasswordChangeView,
+    PasswordChangeDoneView,
     )
 
 
@@ -48,6 +53,33 @@ urlpatterns = [
             template_name = 'authentication/password_reset_complete.html'
         ) , 
         name='password_reset_complete'),
+
+    # path(
+    #     'password/change/', 
+    #     PWDChangeView.as_view(), 
+    #     name='password_change_view'
+    #     ),
+    # path(
+    #     'password/change/done/', 
+    #     PWDChangeDoneView.as_view(), 
+    #     name='password_change_done_view'
+    #     ),
+
+    path(
+        'password/change/', 
+        PasswordChangeView.as_view(
+            template_name = 'authentication/password_change.html',
+            success_url = reverse_lazy('password_change_done_view')
+            ), 
+        name='password_change_view'
+        ),
+    path(
+        'password/change/done/', 
+        PasswordResetDoneView.as_view(
+            template_name = 'authentication/password_change_done.html'
+            ), 
+        name='password_change_done_view'
+        )
 ]
 
 # PasswordResetView ->> Ask for Email
