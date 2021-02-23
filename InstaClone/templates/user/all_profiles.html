@@ -9,10 +9,10 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-12 col-md-8 card offset-md-2">
-                <!-- {% if all_profiles %} -->
+                {% if all_profiles %}
 
                     <!-- All User Profiles -->
-                    <!-- {% for user in all_profiles %} -->
+                    {% for user in all_profiles %}
 
                     <!-- Single user Profile Row -->
                     <a href="profile_view" class="text-decoration-none">
@@ -39,15 +39,15 @@
                     </a>
                     <!-- Single user Profile Row end -->
 
-                    <!-- {% endfor %} -->
+                    {% endfor %}
                     <!-- All User Profiles end -->
 
-                <!-- {% else %} -->
+                {% else %}
 
                     <!-- No Results found -->
                     <p class="justify-content-center text-center mx-auto my-5">No Results to display</p>
 
-                <!-- {% endif %} -->
+                {% endif %}
             </div>
         </div>
     </div>

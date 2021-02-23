@@ -9,8 +9,8 @@
         <div class="search__input m-auto d-none d-md-block">
 
           <!-- Form to search Users -->
-          <form method="GET" action="all_profiles_view" class="form-inline">
-            <input type="text" autocapitalize="none" placeholder="Search" value="" class="form-control" name="s">
+          <form method="GET" action="{% url 'all_profiles_view' %}" class="form-inline">
+            <input type="text" autocapitalize="none" placeholder="Search" value="" class="form-control" name="query">
             <button type="submit" class="ml-2 btn p-0">
               <i class="fa fa-search"></i>
             </button>

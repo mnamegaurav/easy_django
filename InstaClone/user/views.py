@@ -3,6 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.db.models import Q
 
 from user.forms import UserEditForm
 # Create your views here.
@@ -54,3 +55,22 @@ class ProfileEditView(View):
                 form[field].field.widget.attrs['class'] += ' is-invalid'
             context = {'form': form}
             return render(request, self.template_name, context=context)
+
+
+class AllProfilesView(View):
+    template_name = 'user/all_profiles.html'
+
+    def get(self, request, *args, **kwargs):
+        search_term = request.GET.get('query')
+
+        if search_term:
+            all_profiles = User.objects.filter(
+                    Q(username__contains=search_term) | Q(full_name__contains=search_term)
+                ).exclude(
+                    username=request.user.username
+                )
+        else:
+            all_profiles = User.objects.none()
+
+        context = {'all_profiles': all_profiles}
+        return render(request, self.template_name, context=context)
