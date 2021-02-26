@@ -66,15 +66,14 @@ class Like(models.Model):
 
 # Followers Model
 class Follow(models.Model):
-    user = models.ForeignKey(User, related_name='follow_user', on_delete=models.CASCADE, editable=False)
-    follower = models.ForeignKey(User, related_name='follow_follower', on_delete=models.CASCADE)
-    is_follow = models.BooleanField(default=True)
+    user = models.ForeignKey(User, related_name='follow_follower', on_delete=models.CASCADE, editable=False)
+    followed = models.ForeignKey(User, related_name='follow_followed', on_delete=models.CASCADE)
     followed_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
-        return f"{self.user} --> {self.follower}"
+        return f"{self.user} --> {self.followed}"
 
     def save(self, *args, **kwargs):
         user = get_current_user()

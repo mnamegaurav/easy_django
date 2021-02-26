@@ -53,7 +53,7 @@
 
                         <!-- Total number of followers -->
                         <strong>
-                        20
+                        {{ request.user.follower_count }}
                         </strong> followers
 
                     </span>
@@ -61,7 +61,7 @@
 
                         <!-- Total followings count -->
                         <strong>
-                        200
+                        {{ request.user.following_count }}
                         </strong> following
 
                     </span>

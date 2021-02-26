@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import Q
 
 from user.forms import UserEditForm
+from core.models import Follow
 # Create your views here.
 
 User = get_user_model()
@@ -22,10 +23,25 @@ class ProfileView(View):
         except Exception as e:
             return HttpResponse('<h1>This page does not exist.</h1>')
 
-        context = { 'user': user }
+        
         if username == request.user.username:
+            context = { 'user': user }
             return render(request, self.template_name_auth, context=context)
         else:
+
+            # foolow and unfollow button conditional rendering
+            # is_follows_this_user = False
+            # for follower_user in request.user.follow_follower.all():
+            #     if user == follower_user.followed:
+            #         is_follows_this_user=True
+
+            try:
+                Follow.objects.get(user=request.user, followed=user)
+                is_follows_this_user = True
+            except Exception as e:
+                is_follows_this_user = False
+                    
+            context = { 'user': user, 'is_follows_this_user': is_follows_this_user }
             return render(request, self.template_name_anon, context=context)
 
 

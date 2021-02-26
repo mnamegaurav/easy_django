@@ -15,7 +15,7 @@
                     {% for user in all_profiles %}
 
                     <!-- Single user Profile Row -->
-                    <a href="profile_view" class="text-decoration-none">
+                    <a href="{% url 'profile_view' user.username %}" class="text-decoration-none">
                         <div class="row py-3 px-5 border-bottom">
 
                             <!-- Profile picture -->

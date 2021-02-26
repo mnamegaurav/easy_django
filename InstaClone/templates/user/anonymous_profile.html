@@ -30,21 +30,22 @@
                     <!-- Username -->
                     <h2 class="username__text mr-4">{{ user.username }}</h2>
 
-                    <!-- If follws then this -->
+                    {% if not is_follows_this_user %}
                         <!-- Follow button -->
-                        <form method="POST" action="follow_done_view">
+                        <form method="POST" action="{% url 'follow_done_view' %}">
                             {% csrf_token %}
                             <input type="number" name="followed_user_id" hidden value="{{ user.pk }}">
                             <button class="px-2 btn btn-sm btn-primary mx-2" type="submit">Follow</button>
                         </form>
 
-                    <!-- else this -->
+                    {% else %}
                         <!-- Unfollow button -->
-                        <form method="POST" action="unfollow_done_view">
+                        <form method="POST" action="{% url 'unfollow_done_view' %}">
                             {% csrf_token %}
                             <input type="number" name="unfollowed_user_id" hidden value="{{ user.pk }}">
                             <button class="px-2 btn btn-sm btn-success mx-2" type="submit">Unfollow</button>
                         </form>
+                    {% endif %}
 
                 </div>
 
@@ -61,7 +62,7 @@
                         <strong>
 
                         <!-- total followers count -->
-                        25
+                        {{ user.follower_count }}
                         </strong> followers
 
                     </span>
@@ -69,7 +70,7 @@
                         <strong>
 
                         <!-- total following count -->
-                        30
+                        {{ user.following_count }}
                         </strong> following
 
                     </span>
