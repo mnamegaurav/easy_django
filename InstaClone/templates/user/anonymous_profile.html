@@ -54,7 +54,7 @@
                         <strong>
 
                         <!-- total posts count -->
-                        30
+                        {{ user.posts_count }}
                         </strong> posts
 
                     </span>
@@ -110,16 +110,17 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         
-
+                    {% if user.posts_count != 0 %}
                         <!-- All posts grid -->
                         <div class="all__posts__grid row justify-content-center">
 
+                            {% for post in user.post_set.all %}
                                 <!-- Single post grid -->
                                 <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
                                     <a href="post_view" class="text-decoration-none text-reset">
 
                                         <!-- Post image -->
-                                        <img src="" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+                                        <img src="{{ post.image.url }}" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
 
                                         <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
                                             <span class="mx-2">
@@ -140,16 +141,20 @@
                                     </a>
                                 </div>
                                 <!-- Single post grid end -->
+                            {% endfor %}
 
                         </div>
                         <!-- All posts grid end -->
 
+                    {% else %}
 
                         <!-- No post images -->
                         <div class="no__posts__img">
                             <img src="{% static 'img/no-posts1.jpg' %}">
                             <img src="{% static 'img/no-posts2.jpg' %}">
                         </div>
+
+                    {% endif %}
 
                     </div>
                 </div>                

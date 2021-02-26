@@ -45,7 +45,7 @@
 
                         <!-- Total number of posts -->
                         <strong>
-                        10
+                        {{ request.user.posts_count }}
                         </strong> posts
 
                     </span>
@@ -109,17 +109,17 @@
                     <!-- All my posts tab content -->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         
-
+                    {% if request.user.posts_count != 0 %}
                         <!-- All posts grids -->
                         <div class="all__posts__grid row justify-content-center">
                             
-
+                        {% for post in request.user.post_set.all %}
                             <!-- Single posts grid -->
                             <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
                                 <a href="post_view" class="text-decoration-none text-reset">
 
                                     <!-- Post image -->
-                                    <img src="" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+                                    <img src="{{ post.image.url }}" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
 
                                     <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
                                         <span class="mx-2">
@@ -139,7 +139,7 @@
                                         <span class="mx-2">
 
                                             <!-- post delete button -->
-                                            <a data-toggle="modal" data-target="#post_delete_POST_PK" style="cursor: pointer;">
+                                            <a data-toggle="modal" data-target="#post_delete_{{ post.pk }}" style="cursor: pointer;">
                                                 <span class="fa fa-trash"></span>
                                             </a>
                                             
@@ -149,15 +149,40 @@
                             </div>
                             <!-- Single posts grid end -->
 
+                            <!-- Post Delete modal -->
+                            <div class="modal fade" id="post_delete_{{ post.pk }}" tabindex="-1" aria-labelledby="post_delete_{{ post.pk }}_label" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0 py-2 text-center">
+                                            <div class="p-1 m-0 px-4">
+                                                <p>Do you really want to delete this post?</p>
+                                            </div>
+                                            <div class="p-1 m-0 px-4">
+                                                <form method="POST" action="{% url 'post_delete_view' post.pk %}">
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-sm btn-warning" type="submit">Yes</button>
+                                                    <a class="btn btn-sm btn-info" data-dismiss="modal">No</a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Delete modal end -->
+                        {% endfor %}
+
                         </div>
                         <!-- All posts grid end -->
 
+                    {% else %}
 
                         <!-- No posts images -->
                         <div class="no__posts__img">
                             <img src="{% static 'img/no-posts1.jpg' %}">
                             <img src="{% static 'img/no-posts2.jpg' %}">
                         </div>
+
+                    {% endif %}
 
                     </div>
                     <!-- All my posts tab content end -->
@@ -243,27 +268,5 @@
         </div>
     </div>
     <!-- Settings Modal end -->
-
-
-    <!-- Post Delete modal -->
-    <div class="modal fade" id="post_delete_{{ post.pk }}" tabindex="-1" aria-labelledby="post_delete_{{ post.pk }}_label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-0 py-2 text-center">
-                    <div class="p-1 m-0 px-4">
-                        <p>Do you really want to delete this post?</p>
-                    </div>
-                    <div class="p-1 m-0 px-4">
-                        <form method="POST" action="post_delete_view">
-                            {% csrf_token %}
-                            <button class="btn btn-sm btn-warning" type="submit">Yes</button>
-                            <a class="btn btn-sm btn-info" data-dismiss="modal">No</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Post Delete modal end -->
 
 {% endblock %}

@@ -24,7 +24,7 @@
                         <div>
 
                             <!-- Post Create Form -->
-                            <form method="POST" action="post_create_view" enctype="multipart/form-data">
+                            <form method="POST" action="{% url 'post_create_view' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {% for field in form %}
                                     <div class="mb-2">{{ field }}</div>

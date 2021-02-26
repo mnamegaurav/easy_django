@@ -43,3 +43,8 @@ class User(AbstractUser):
     def following_count(self):
         count = self.follow_follower.count()
         return count
+
+    @property
+    def posts_count(self):
+        count = self.post_set.count()
+        return count
