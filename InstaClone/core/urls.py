@@ -5,6 +5,10 @@ from core.views import (
     UnfollowDoneView,
     PostCreatView,
     PostDeleteView,
+    PostDetailView,
+    PostLikeView,
+    PostUnlikeView,
+    PostCommentView,
     )
 from django.contrib.auth.decorators import login_required
 
@@ -16,6 +20,11 @@ urlpatterns = [
     path('unfollow/done/', login_required(UnfollowDoneView.as_view()), name='unfollow_done_view'),
 
     # post related urls
+    path('post/<int:id>', login_required(PostDetailView.as_view()), name='post_detail_view'),
     path('post/create/', login_required(PostCreatView.as_view()), name='post_create_view'),
-    path('post/delete/<int:id>', login_required(PostDeleteView.as_view()), name='post_delete_view')
+    path('post/delete/<int:id>', login_required(PostDeleteView.as_view()), name='post_delete_view'),
+
+    path('post/like/<int:id>/', PostLikeView.as_view(), name='post_like_view'),
+    path('post/unlike/<int:id>/', PostUnlikeView.as_view(), name='post_unlike_view'),
+    path('post/comment/<int:id>/', PostCommentView.as_view(), name='post_comment_view'),
 ]

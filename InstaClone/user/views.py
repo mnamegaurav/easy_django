@@ -28,13 +28,6 @@ class ProfileView(View):
             context = { 'user': user }
             return render(request, self.template_name_auth, context=context)
         else:
-
-            # foolow and unfollow button conditional rendering
-            # is_follows_this_user = False
-            # for follower_user in request.user.follow_follower.all():
-            #     if user == follower_user.followed:
-            #         is_follows_this_user=True
-
             try:
                 Follow.objects.get(user=request.user, followed=user)
                 is_follows_this_user = True

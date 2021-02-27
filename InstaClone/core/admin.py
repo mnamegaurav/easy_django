@@ -19,7 +19,7 @@ class CommentModelAdmin(admin.ModelAdmin):
 
 class LikeModelAdmin(admin.ModelAdmin):
     model = Like
-    list_display = ('post', 'user', 'is_like', 'liked_on', 'updated_on')
+    list_display = ('post', 'user', 'liked_on', 'updated_on')
 
 
 class FollowModelAdmin(admin.ModelAdmin):

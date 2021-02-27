@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/core/post_card.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Single Posts in Detail Card -->
+                {% include 'components/post_detail_card.html' %}
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

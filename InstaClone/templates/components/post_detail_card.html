@@ -1,0 +1,137 @@
+<div class="card mx-auto mb-5">
+  <div class="card-body p-0 row">
+    <div class="col-12 col-md-8 pr-md-0">
+        <div class="post__card__img">
+
+            <!-- Post Image -->
+            <img src="{{ post.image.url }}" style="width: 100%;">
+
+        </div>
+    </div>
+    <div class="col-12 col-md-4 pl-md-0">
+        <div class="card-title post__card__head d-flex justify-content-between px-3 pt-3">
+            <div>
+
+                <!-- Post Creator Profile picture -->
+                {% if post.user.picture %}
+                    <img src="{{ post.user.picture.url }}" class="rounded-circle z-depth-0">
+                {% else %}
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" class="rounded-circle z-depth-0">
+                {% endif %}
+                <!-- Post Creator Profile picture end -->
+                
+                <span class="ml-2">
+
+                    <!-- Post creator username -->
+                    <a href="{% url 'profile_view' post.user.username %}" class="text-decoration-none text-reset">{{ post.user.username }}</a>
+
+                </span>
+            </div>
+        </div>
+        <div class="post__card__reactions d-flex justify-content-between py-3 px-3">
+            <div class="d-flex">
+                <div class="post__like__btn ml-1 mr-2 row">
+
+                    <!-- Like and Unlike Buttons -->
+                    {% if liked_this_post %}
+                        <form method="POST" action="{% url 'post_unlike_view' post.pk %}">
+                            {% csrf_token %}
+                            <button class="btn p-0 m-0" type="submit"><span class="fas fa-heart"></span></button>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{% url 'post_like_view' post.pk %}">
+                            {% csrf_token %}
+                            <button class="btn p-0 m-0" type="submit"><span class="far fa-heart"></span></button>
+                        </form>
+                    {% endif %}
+                    <!-- Like and Unlike Buttons End -->
+
+                    <!-- Total likes count -->
+                    <span class="mx-2">{{ post.likes_count }}</span>
+
+                </div>
+                <div class="post__comment__btn ml-1 mr-2 row">
+                    <span class="far fa-comment"></span>
+
+                    <!-- Total number of comments on post -->
+                    <span class="mx-2">{{ post.comments_count }}</span>
+
+                </div>
+            </div>
+            <div>
+                <div class="post__save__btn">
+
+                    <!-- Post Save Button -->
+                    <form method="POST" action="post_save_view">
+                        {% csrf_token %}
+                        <button class="btn p-0 m-0" type="submit">
+                            <span class="far fa-bookmark"></span>
+                        </button>
+                    </form>
+                    <!-- Post Save Button end -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Post text if any -->
+        {% if post.text %}
+        <div class="post__card__text pt-3 px-2">
+            <p>{{ post.text }}</p>
+        </div>
+        {% endif %}
+
+        <div class="post__card__comments px-2 py-3 border-top border-bottom">
+            <strong>Comments</strong>
+        </div>
+        <div class="overflow-auto">
+
+            <!-- All the comments on this post -->
+            {% for comment in post.comment_set.all %}
+            <!-- Single Comment -->
+            <div class="comment row py-3 px-4">
+                <a href="profile_view" class="text-reset text-decoration-none form-inline">
+
+                    <!-- Commentor profile picture -->
+                    {% if comment.user.picture %}
+                    <img src="/media/{{ comment.user.picture }}" class="rounded-circle z-depth-0 profile__pic">
+                    {% else %}
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"  class="profile__pic rounded-circle z-depth-0">
+                    {% endif %}
+
+                    <!-- Commentor full name -->
+                    <div class="my-auto ml-2">
+                        <p class="m-0" style="font-size: 14px;">
+                            {{ comment.user.full_name }}
+                        </p>
+                    </div>
+
+                </a>
+                <div class="w-100">
+
+                    <!-- Comment text -->
+                    <p class="m-0 text-wrap" style="font-size: 13px;">
+                        {{ comment.text }}
+                    </p>
+
+                </div>
+            </div>
+            <!-- Single Comment end -->
+            {% endfor %}
+            <!-- All the comments on this post end -->
+
+        </div>
+        <div class="w-100 my-3">
+
+            <!-- Comment form -->
+            <form class="form-inline justify-content-between mx-1" action="{% url 'post_comment_view' post.pk %}" method="POST">
+                {% csrf_token %}
+                <textarea name="comment_text" placeholder="Add a comment..." style="outline: none;border: 0" class="w-100"></textarea>
+                <button type="submit" class="btn btn-sm text-primary font-weight-bold">Post</button>
+            </form>
+            <!-- Comment form end -->
+
+        </div>
+    </div>
+  </div>
+</div>
