@@ -27,12 +27,12 @@
 
           <!-- Explore View Button -->
           <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
-            <a href="posts_explore_view" class="text-decoration-none text-reset"><span class="nav__icons far fa-compass"></span></a>
+            <a href="{% url 'explore_posts_view' %}" class="text-decoration-none text-reset"><span class="nav__icons far fa-compass"></span></a>
           </li>
 
           <!-- Liked Posts Button -->
           <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
-            <a href="liked_posts_view" class="text-decoration-none text-reset"><span class="nav__icons far fa-heart"></span></a>
+            <a href="{% url 'liked_posts_view' %}" class="text-decoration-none text-reset"><span class="nav__icons far fa-heart"></span></a>
           </li>
 
           <!-- Dropdown for more menu -->
@@ -56,7 +56,7 @@
               </a>
 
               <!-- Saved posts Button -->
-              <a class="dropdown-item" href="posts_saved_view">
+              <a class="dropdown-item" href="{% url 'saved_posts_view' %}">
                 <span class="mr-3 fa fa-bookmark"></span>Saved
               </a>
 

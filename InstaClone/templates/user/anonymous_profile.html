@@ -13,7 +13,7 @@
 
                     <!-- User's Profile picture -->
                     {% if user.picture %}
-                        <a href="profile_edit_view">
+                        <a>
                             <img src="{{ user.picture.url }}" class="profile__pic">
                         </a>
                     {% else %}
@@ -117,7 +117,7 @@
                             {% for post in user.post_set.all %}
                                 <!-- Single post grid -->
                                 <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
-                                    <a href="post_view" class="text-decoration-none text-reset">
+                                    <a href="{% url 'post_detail_view' post.pk %}" class="text-decoration-none text-reset">
 
                                         <!-- Post image -->
                                         <img src="{{ post.image.url }}" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
@@ -127,14 +127,14 @@
                                                 <span class="far fa-heart"></span>
 
                                                 <!-- total post likes -->
-                                                30
+                                                {{ post.likes_count }}
 
                                             </span> 
                                             <span class="mx-2">
                                                 <span class="far fa-comment"></span>
 
                                                 <!-- total post comments -->
-                                                400
+                                                {{ post.comments_count }}
 
                                             </span>
                                         </div>

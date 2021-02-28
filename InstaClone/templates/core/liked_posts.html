@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+
+            <!-- All Liked Posts -->
+            {% for like_obj in request.user.like_set.all %}
+                {% with post=like_obj.post %}
+
+                <!-- Single Posts Grid -->
+                <div class='col-12 col-md-4 col-lg-3 my-4 mx-3 px-0 card'>
+                    <a href="{% url 'post_detail_view' post.pk %}" class="text-decoration-none text-reset">
+
+                        <!-- Post Image -->
+                        <img src="{{ post.image.url }}" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+
+                        <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
+                            <span class="mx-2">
+                                <span class="far fa-heart"></span>
+
+                                <!-- total likes -->
+                                {{ post.likes_count }}
+
+                            </span> 
+                            <span class="mx-2">
+                                <span class="far fa-comment"></span>
+
+                                <!-- total comments -->
+                                {{ post.comments_count }}
+                                
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Single Posts Grid end -->
+
+                {% endwith %}
+            {% endfor %}
+            <!-- All Liked Posts end -->
+
+        </div>
+    </div>
+
+{% endblock %}

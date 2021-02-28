@@ -4,6 +4,7 @@ from core.models import (
     Comment,
     Like,
     Follow,
+    SavedPost,
 )
 # Register your models here.
 
@@ -26,8 +27,13 @@ class FollowModelAdmin(admin.ModelAdmin):
     model = Follow
     list_display = ('user', 'followed', 'followed_on', 'updated_on')
 
+class SavedPostModelAdmin(admin.ModelAdmin):
+    model = SavedPost
+    list_display = ('post', 'user', 'saved_on')
+
 
 admin.site.register(Post, PostModelAdmin)
 admin.site.register(Comment, CommentModelAdmin)
 admin.site.register(Like, LikeModelAdmin)
 admin.site.register(Follow, FollowModelAdmin)
+admin.site.register(SavedPost, SavedPostModelAdmin)

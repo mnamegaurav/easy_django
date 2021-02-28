@@ -62,12 +62,22 @@
                 <div class="post__save__btn">
 
                     <!-- Post Save Button -->
-                    <form method="POST" action="post_save_view">
-                        {% csrf_token %}
-                        <button class="btn p-0 m-0" type="submit">
-                            <span class="far fa-bookmark"></span>
-                        </button>
-                    </form>
+
+                    {% if not post_saved %}
+                        <form method="POST" action="{% url 'post_save_view' post.pk %}">
+                            {% csrf_token %}
+                            <button class="btn p-0 m-0" type="submit">
+                                <span class="far fa-bookmark"></span>
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{% url 'post_unsave_view' post.pk %}">
+                            {% csrf_token %}
+                            <button class="btn p-0 m-0" type="submit">
+                                <span class="fas fa-bookmark"></span>
+                            </button>
+                        </form>
+                    {% endif %}
                     <!-- Post Save Button end -->
 
                 </div>
@@ -90,7 +100,7 @@
             {% for comment in post.comment_set.all %}
             <!-- Single Comment -->
             <div class="comment row py-3 px-4">
-                <a href="profile_view" class="text-reset text-decoration-none form-inline">
+                <a href="{% url 'profile_view' comment.user.username %}" class="text-reset text-decoration-none form-inline">
 
                     <!-- Commentor profile picture -->
                     {% if comment.user.picture %}

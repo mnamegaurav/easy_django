@@ -1,8 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.contrib.auth import get_user_model
+from django.db.models import Count
 
-from core.models import Follow, Post, Like, Comment
+from core.models import (
+    Follow, 
+    Post, 
+    Like, 
+    Comment, 
+    SavedPost
+    )
 from core.forms import PostCreateForm
 
 User = get_user_model()
@@ -35,7 +42,18 @@ class PostDetailView(View):
         except Exception as e:
             liked_this_post = False
 
-        context = {'post': post_obj, 'liked_this_post': liked_this_post}
+        try:
+            SavedPost.objects.get(user=request.user, post_id=post_id)
+            post_saved = True
+        except Exception as e:
+            post_saved = False
+
+        context = {
+            'post': post_obj, 
+            'liked_this_post': liked_this_post, 
+            'post_saved': post_saved,
+            }
+            
         return render(request, self.template_name, context=context)
 
 
@@ -65,6 +83,36 @@ class PostDeleteView(View):
 
         if request.user == post_obj.user:
             post_obj.delete()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
+class PostSaveView(View):
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs.get('id')
+        
+        try:
+            post_obj = Post.objects.get(pk=post_id)
+        except Exception as e:
+            pass
+
+        try:
+            SavedPost.objects.create(post_id=post_id)
+        except Exception as e:
+            pass        
+
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
+class PostUnsaveView(View):
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs.get('id')
+        
+        try:
+            savedpost_obj = SavedPost.objects.get(post_id=post_id)
+            savedpost_obj.delete()
+        except Exception as e:
+            pass       
 
         return redirect(request.META.get('HTTP_REFERER'))
 
@@ -129,3 +177,24 @@ class UnfollowDoneView(View):
             pass
 
         return redirect(request.META.get('HTTP_REFERER'))
+
+
+class LikedPostsView(View):
+    template_name = 'core/liked_posts.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class SavedPostsView(View):
+    template_name = 'core/saved_posts.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class ExplorePostsView(View):
+    template_name = 'core/posts_explore.html'
+    def get(self, request, *args, **kwargs):
+
+        all_posts = Post.objects.annotate(count=Count('like')).order_by('-count')
+        context = {'all_posts': all_posts}
+        return render(request, self.template_name, context=context)

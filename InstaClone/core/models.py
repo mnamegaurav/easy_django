@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from crum import get_current_user
+
+from core.utils import auto_save_current_user
 # Create your models here.
 
 User = get_user_model()
@@ -22,11 +23,7 @@ class Post(models.Model):
         return str(self.pk)
 
     def save(self, *args, **kwargs):
-        user = get_current_user()
-        if user and not user.pk:
-            user = None
-        if not self.pk:
-            self.user = user
+        auto_save_current_user(self)
         super(Post, self).save(*args, **kwargs)
 
     @property
@@ -52,11 +49,7 @@ class Comment(models.Model):
         return self.text
 
     def save(self, *args, **kwargs):
-        user = get_current_user()
-        if user and not user.pk:
-            user = None
-        if not self.pk:
-            self.user = user
+        auto_save_current_user(self)
         super(Comment, self).save(*args, **kwargs)
 
 # Likes Model
@@ -70,11 +63,7 @@ class Like(models.Model):
         return str(self.post.id)
 
     def save(self, *args, **kwargs):
-        user = get_current_user()
-        if user and not user.pk:
-            user = None
-        if not self.pk:
-            self.user = user
+        auto_save_current_user(self)
         super(Like, self).save(*args, **kwargs)
 
 # Followers Model
@@ -89,9 +78,18 @@ class Follow(models.Model):
         return f"{self.user} --> {self.followed}"
 
     def save(self, *args, **kwargs):
-        user = get_current_user()
-        if user and not user.pk:
-            user = None
-        if not self.pk:
-            self.user = user
+        auto_save_current_user(self)
         super(Follow, self).save(*args, **kwargs)
+
+
+class SavedPost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
+    saved_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.post.pk)
+
+    def save(self, *args, **kwargs):
+        auto_save_current_user(self)
+        super(SavedPost, self).save(*args, **kwargs)

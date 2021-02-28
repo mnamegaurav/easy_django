@@ -116,7 +116,7 @@
                         {% for post in request.user.post_set.all %}
                             <!-- Single posts grid -->
                             <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
-                                <a href="post_view" class="text-decoration-none text-reset">
+                                <a href="{% url 'post_detail_view' post.pk %}" class="text-decoration-none text-reset">
 
                                     <!-- Post image -->
                                     <img src="{{ post.image.url }}" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
@@ -126,14 +126,14 @@
                                             <span class="far fa-heart"></span>
 
                                             <!-- total post like count -->
-                                            20
+                                            {{ post.likes_count }}
 
                                         </span> 
                                         <span class="mx-2">
                                             <span class="far fa-comment"></span>
 
                                             <!-- total post comment count -->
-                                            30
+                                            {{ post.comments_count }}
 
                                         </span>
                                         <span class="mx-2">
@@ -190,28 +190,31 @@
                     <!-- Saved posts tab content -->
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="all__posts__grid row justify-content-center">
-                        
+                        {% for savedpost_obj in request.user.savedpost_set.all %}
+                            {% with post=savedpost_obj.post %}
                             <div class='card p-0 col-12 col-md-4 col-lg-3 my-4 mx-3'>
-                                <a href="post_view" class="text-decoration-none text-reset">
-                                    <img src="" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
+                                <a href="{% url 'post_detail_view' post.pk %}" class="text-decoration-none text-reset">
+                                    <img src="{{ post.image.url }}" class="w-100 img-fluid" style="height: 230px;object-fit: cover;">
                                     <div class='posts__likes__comment mx-auto py-3 text-center text-mute row justify-content-center' style="font-size: 14px;">
                                         <span class="mx-2">
                                             <span class="far fa-heart"></span>
 
                                             <!-- total like count -->
-                                            30
+                                            {{ post.likes_count }}
 
                                         </span> 
                                         <span class="mx-2">
                                             <span class="far fa-comment"></span>
 
                                             <!-- total comment count -->
-                                            40
+                                            {{ post.comments_count }}
 
                                         </span>           
                                     </div>
                                 </a>
                             </div>
+                            {% endwith %}
+                        {% endfor %}
                         </div>
                     </div>
                     <!-- Saved posts tab content end -->
